@@ -5,7 +5,7 @@ public enum MenuException {
     INVALID_INPUT_FORMAT("입력 형식이 잘못되었습니다."),
 
     BLANK_INPUT("입력값이 비어 있습니다."),
-    NO_SUCH_MENU("잘못된 메뉴 입력입니다."),
+    NO_SUCH_MENU("존재하지 않는 메뉴입니다."),
     ;
 
     private final String message;
