@@ -6,7 +6,7 @@ import menu.domain.menu.Category;
 public class RandomCategorySelector implements CategorySelector {
     @Override
     public Category select() {
-        int categoryNumber = Randoms.pickNumberInRange(1, 5);
+        int categoryNumber = Randoms.pickNumberInRange(CATEGORY_MIN_NUMBER, CATEGORY_MAX_NUMBER);
         return Category.from(categoryNumber);
     }
 }

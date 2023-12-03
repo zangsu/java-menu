@@ -7,7 +7,8 @@ import menu.domain.menu.Category;
 import menu.view.io.Printer;
 
 public class OutputView {
-    public static final String EXCEPTION_PREFIX = "[ERROR] ";
+    private static final String EXCEPTION_PREFIX = "[ERROR] ";
+    private static final String MENU_RESULT_DELIMITER = " | ";
     private final Printer printer = new Printer();
 
     public void printException(Exception e) {
@@ -28,10 +29,10 @@ public class OutputView {
         printer.printMessage("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
         printer.printMessageUsingFormat("[ 카테고리 | %s ]", categories.stream()
                 .map(Category::getName)
-                .collect(Collectors.joining(" | ")));
+                .collect(Collectors.joining(MENU_RESULT_DELIMITER)));
         coaches.getCoaches().forEach(coach ->
                 printer.printMessageUsingFormat("[ %s | %s ]", coach.getName(),
-                        String.join(" | ", coach.getSelectedMenuNames())
+                        String.join(MENU_RESULT_DELIMITER, coach.getSelectedMenuNames())
                 ));
 
         printer.printMessage("추천을 완료했습니다.");

@@ -1,7 +1,9 @@
 package menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import menu.domain.coach.Coach;
 import menu.domain.coach.Coaches;
 import menu.domain.menu.Category;
@@ -10,6 +12,8 @@ import menu.domain.selector.CategorySelector;
 import menu.domain.selector.MenuSelector;
 
 public class MenuService {
+    private static final int WEEKDAY_COUNT = 5;
+    private static final int MAX_CATEGORY_DUPLICATION = 2;
     private final CategorySelector categorySelector;
     private final MenuSelector menuSelector;
 
@@ -18,17 +22,22 @@ public class MenuService {
         this.menuSelector = menuSelector;
     }
 
-    private static long categoryCount(List<Category> selectCategories, Category category) {
-        return selectCategories.stream()
-                .filter(selectCategory -> selectCategory.equals(category))
-                .count();
+    public void banMenu(Coach coach, List<String> banedMenuNames) {
+        if (banedMenuNames.isEmpty()) {
+            coach.banMenus(Collections.emptyList());
+            return;
+        }
+        List<Menu> bannedMenus = banedMenuNames.stream()
+                .map(Menu::from)
+                .collect(Collectors.toList());
+        coach.banMenus(bannedMenus);
     }
 
     public List<Category> selectCategory() {
         List<Category> selectCategories = new ArrayList<>();
-        while (selectCategories.size() < 5) {
+        while (selectCategories.size() < WEEKDAY_COUNT) {
             Category category = categorySelector.select();
-            if (categoryCount(selectCategories, category) >= 2) {
+            if (categoryCount(selectCategories, category) >= MAX_CATEGORY_DUPLICATION) {
                 continue;
             }
             selectCategories.add(category);
@@ -36,17 +45,19 @@ public class MenuService {
         return selectCategories;
     }
 
-    public Menu selectMenu(Category category) {
-        return menuSelector.select(category);
+    private int categoryCount(List<Category> selectCategories, Category category) {
+        return (int) selectCategories.stream()
+                .filter(selectCategory -> selectCategory.equals(category))
+                .count();
     }
 
-    public void selectMenu(Coaches coaches, Category category) {
-        coaches.consumeCoaches(coach -> selectMenuPerCoach(category, coach));
+    public void recommendMenus(Coaches coaches, Category category) {
+        coaches.consumeCoaches(coach -> recommendMenuPerCoach(category, coach));
     }
 
-    private void selectMenuPerCoach(Category category, Coach coach) {
+    private void recommendMenuPerCoach(Category category, Coach coach) {
         while (true) {
-            Menu menu = selectMenu(category);
+            Menu menu = menuSelector.select(category);
             if (coach.selectMenu(menu)) {
                 return;
             }

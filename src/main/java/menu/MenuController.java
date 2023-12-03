@@ -1,11 +1,9 @@
 package menu;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import menu.domain.coach.Coach;
 import menu.domain.coach.Coaches;
 import menu.domain.menu.Category;
-import menu.domain.menu.Menu;
 import menu.domain.selector.RandomCategorySelector;
 import menu.domain.selector.RandomMenuSelector;
 import menu.exception.handler.ExceptionHandler;
@@ -26,21 +24,9 @@ public class MenuController {
     public void run() {
         outputView.printStartMessage();
         Coaches coaches = handler.get(this::getCoaches);
-        getBannedMenu(coaches);
+        banMenu(coaches);
         recommendMenu(coaches);
         //종료
-    }
-
-    private void recommendMenu(Coaches coaches) {
-        List<Category> selectCategories = menuService.selectCategory();
-        selectCategories.forEach(
-                category -> selectMenu(coaches, category)
-        );
-        outputView.printResult(selectCategories, coaches);
-    }
-
-    private void selectMenu(Coaches coaches, Category category) {
-        menuService.selectMenu(coaches, category);
     }
 
     private Coaches getCoaches() {
@@ -48,19 +34,28 @@ public class MenuController {
         return new Coaches(coachesName);
     }
 
-    private void getBannedMenu(Coaches coaches) {
-        coaches.consumeCoaches(this::getBannedMenuWithHandling);
+    private void banMenu(Coaches coaches) {
+        coaches.consumeCoaches(this::banMenuWithHandling);
     }
 
-    private void getBannedMenuWithHandling(Coach coach) {
-        handler.run(() -> getBannedMenuEachCoach(coach));
+    private void banMenuWithHandling(Coach coach) {
+        handler.run(() -> banMenuPerCoach(coach));
     }
 
-    private void getBannedMenuEachCoach(Coach coach) {
+    private void banMenuPerCoach(Coach coach) {
         List<String> banedMenuNames = inputView.getBanedMenu(coach.getName());
-        List<Menu> bannedMenus = banedMenuNames.stream()
-                .map(Menu::from)
-                .collect(Collectors.toList());
-        coach.banMenus(bannedMenus);
+        menuService.banMenu(coach, banedMenuNames);
+    }
+
+    private void recommendMenu(Coaches coaches) {
+        List<Category> selectCategories = menuService.selectCategory();
+        selectCategories.forEach(
+                category -> recommendMenus(coaches, category)
+        );
+        outputView.printResult(selectCategories, coaches);
+    }
+
+    private void recommendMenus(Coaches coaches, Category category) {
+        menuService.recommendMenus(coaches, category);
     }
 }

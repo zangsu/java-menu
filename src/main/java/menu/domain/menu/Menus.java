@@ -1,5 +1,6 @@
 package menu.domain.menu;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import menu.exception.MenuException;
@@ -9,7 +10,7 @@ public class Menus {
 
     public Menus(List<Menu> menus) {
         validateMenus(menus);
-        this.menus = menus;
+        this.menus = new ArrayList<>(menus);
     }
 
     private void validateMenus(List<Menu> menus) {
@@ -30,6 +31,9 @@ public class Menus {
     }
 
     public void add(Menu menu) {
+        if(contains(menu)) {
+            throw MenuException.DUPLICATE_MENU.makeException();
+        }
         menus.add(menu);
     }
 

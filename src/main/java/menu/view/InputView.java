@@ -5,7 +5,7 @@ import menu.view.io.Printer;
 import menu.view.io.Reader;
 
 public class InputView {
-    public static final String DELIMITER = ",";
+    private static final String DELIMITER = ",";
     private final Reader reader = new Reader();
     private final Printer printer = new Printer();
 

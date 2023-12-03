@@ -6,6 +6,8 @@ import java.util.Optional;
 import menu.exception.MenuException;
 
 public enum Menu {
+    NONE(""),
+
     GYUDON("규동"),
     UDON("우동"),
     MISOSHIRU("미소시루"),
@@ -34,7 +36,7 @@ public enum Menu {
     MAPO_TOFU("마파두부"),
     TANGSUYUK("탕수육"),
     TOMATO_EGG_STIR_FRY("토마토 달걀볶음"),
-    GOCHUJANG_JAPCHAE("고추잡채"),
+    GOCHU_JAPCHAE("고추잡채"),
 
     PAD_THAI("팟타이"),
     KHAO_PAD("카오 팟"),
@@ -48,13 +50,14 @@ public enum Menu {
 
     LASAGNA("라자냐"),
     GRATIN("그라탱"),
-    YAKISOBA("뇨끼"),
+    GNOCCHI("뇨끼"),
     QUICHE("끼슈"),
     FRENCH_TOAST("프렌치 토스트"),
     BAGUETTE("바게트"),
     SPAGHETTI("스파게티"),
     PIZZA("피자"),
     PANINI("파니니");
+
 
     private static final Map<String, Menu> cachedMenus = new HashMap<>();
 

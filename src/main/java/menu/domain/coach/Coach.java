@@ -7,8 +7,8 @@ import menu.domain.menu.Menus;
 import menu.exception.MenuException;
 
 public class Coach {
-    public static final int MAX_BANNED_MENU_NUM = 2;
-    public static final int WEEKDAY_COUNT = 5;
+    private static final int MAX_BANNED_MENU_NUM = 2;
+    private static final int WEEKDAY_COUNT = 5;
     private final CoachName name;
     private final Menus selectedMenus = new Menus(Collections.emptyList());
     private Menus banedMenus;

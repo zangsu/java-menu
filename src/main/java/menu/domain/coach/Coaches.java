@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import menu.exception.MenuException;
 
 public class Coaches {
+    private static final int MIN_COACHES_NUMBER = 2;
+    private static final int MAX_COACHES_NUMBER = 5;
     private final List<Coach> coaches;
 
     public Coaches(List<String> coachNames) {
@@ -30,10 +32,10 @@ public class Coaches {
     }
 
     private void validateCoachesNumber(int size) {
-        if (size < 2) {
+        if (size < MIN_COACHES_NUMBER) {
             throw MenuException.MIN_COACHES_NUMBER.makeException();
         }
-        if (size > 5) {
+        if (size > MAX_COACHES_NUMBER) {
             throw MenuException.MAX_COACHES_NUMBER.makeException();
         }
     }

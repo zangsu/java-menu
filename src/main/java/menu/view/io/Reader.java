@@ -30,14 +30,7 @@ public class Reader {
         List<String> inputs = Arrays.stream(input.split(delimiter))
                 .map(String::trim)
                 .collect(Collectors.toList());
-        inputs.forEach(this::validateNotBlank);
         return inputs;
-    }
-
-    private void validateNotBlank(String input) {
-        if (input.isBlank()) {
-            throw MenuException.BLANK_INPUT.makeException();
-        }
     }
 
     private void validateNotEndDelimiter(String input, String delimiter) {
