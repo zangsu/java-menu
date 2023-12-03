@@ -1,6 +1,7 @@
 package menu;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import menu.domain.coach.Coach;
 import menu.domain.coach.Coaches;
 import menu.domain.menu.Menu;
@@ -39,9 +40,10 @@ public class MenuController {
 
     private void getBannedMenuEachCoach(Coach coach) {
         List<String> banedMenuNames = inputView.getBanedMenu(coach.getName());
-        banedMenuNames.stream()
+        List<Menu> bannedMenus = banedMenuNames.stream()
                 .map(Menu::from)
-                .forEach(coach::addBanedMenu);
+                .collect(Collectors.toList());
+        coach.addBanedMenu(bannedMenus);
         outputView.newLine();
     }
 }

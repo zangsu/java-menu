@@ -16,24 +16,27 @@ public class Coach {
         this.banedMenus = new ArrayList<>();
     }
 
-    public void addBanedMenu(Menu menu){
-        validateBanedMenu(menu);
-        banedMenus.add(menu);
+    public void addBanedMenu(List<Menu> menues){
+        validateBanedMenu(menues);
+        banedMenus.addAll(menues);
     }
 
-    private void validateBanedMenu(Menu menu) {
-        validateDuplicatedMenu(menu);
-        validateBannedMenuSize();
+    private void validateBanedMenu(List<Menu> menues) {
+        validateDuplicatedMenu(menues);
+        validateBannedMenuSize(menues);
     }
 
-    private void validateBannedMenuSize() {
-        if(banedMenus.size() == MAX_BANNED_MENU_NUM){
+    private void validateBannedMenuSize(List<Menu> menues) {
+        if(menues.size() > MAX_BANNED_MENU_NUM){
             throw MenuException.MAX_BANNED_MENU.makeException();
         }
     }
 
-    private void validateDuplicatedMenu(Menu menu) {
-        if(banedMenus.contains(menu)){
+    private void validateDuplicatedMenu(List<Menu> menu) {
+        int distinctCount = (int) menu.stream()
+                .distinct()
+                .count();
+        if(distinctCount != menu.size()){
             throw MenuException.DUPLICATE_BANNED_MENU.makeException();
         }
     }

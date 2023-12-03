@@ -13,7 +13,7 @@ public enum MenuException {
     DUPLICATE_COACH_NAME("중복된 코치 이름이 있습니다."),
     INVALID_COACH_NAME_LENGTH("코치 이름은 2글자 이상 4글자 이하이어야 합니다."),
 
-    MAX_BANNED_MENU("못 먹는 메뉴는 최대 2개까지만 가능합니다.");
+    MAX_BANNED_MENU("못 먹는 메뉴는 최대 2개까지만 가능합니다."), ;
 
 
     private final String message;
@@ -26,4 +26,7 @@ public enum MenuException {
         return new IllegalArgumentException(this.message);
     }
 
+    public String getMessage() {
+        return message;
+    }
 }
