@@ -6,7 +6,7 @@ public enum MenuException {
 
     BLANK_INPUT("입력값이 비어 있습니다."),
     NO_SUCH_MENU("존재하지 않는 메뉴입니다."),
-    DUPLICATE_BANNED_MENU("중복된 메뉴가 있습니다."),
+    DUPLICATE_MENU("중복된 메뉴가 있습니다."),
     MIN_COACHES_NUMBER("코치는 최소 2명 이상이어야 합니다."),
     MAX_COACHES_NUMBER("코치는 최대 5명 이하이어야 합니다."),
 

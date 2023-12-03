@@ -1,7 +1,6 @@
 package menu.domain.coach;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import menu.domain.menu.Menu;
@@ -42,7 +41,7 @@ public class Coach {
                 .distinct()
                 .count();
         if(distinctCount != menu.size()){
-            throw MenuException.DUPLICATE_BANNED_MENU.makeException();
+            throw MenuException.DUPLICATE_MENU.makeException();
         }
     }
 
