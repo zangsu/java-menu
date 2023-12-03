@@ -67,14 +67,14 @@ class CoachTest {
         @MethodSource("normalBannedMenus")
         @DisplayName("못먹는 음식을 정상적으로 추가한다.")
         void 정상_입력_테스트(List<Menu> menus) {
-            coach.addBanedMenu(menus);
+            coach.banMenus(menus);
         }
 
         @Test
         @DisplayName("못먹는 음식이 중복으로 저장되면 예외가 발생한다.")
         void 중복_저장_예외() {
             Assertions.assertThatIllegalArgumentException()
-                    .isThrownBy(() -> coach.addBanedMenu(List.of(Menu.DOJANG_JJIGAE, Menu.DOJANG_JJIGAE)))
+                    .isThrownBy(() -> coach.banMenus(List.of(Menu.DOJANG_JJIGAE, Menu.DOJANG_JJIGAE)))
                     .withMessage(MenuException.DUPLICATE_MENU.getMessage());
         }
 
@@ -83,7 +83,7 @@ class CoachTest {
         @DisplayName("못먹는 음식이 2개보다 많으면 예외가 발생한다.")
         void 못먹는_음식_초과_입력_테스트(List<Menu> bannedMenus) {
             Assertions.assertThatIllegalArgumentException()
-                    .isThrownBy(() -> coach.addBanedMenu(bannedMenus))
+                    .isThrownBy(() -> coach.banMenus(bannedMenus))
                     .withMessage(MenuException.MAX_BANNED_MENU.getMessage());
         }
     }
@@ -96,7 +96,7 @@ class CoachTest {
         @BeforeEach
         void setUp() {
             coach = new Coach("경덕");
-            coach.addBanedMenu(List.of(Menu.DOJANG_JJIGAE, Menu.KIMCHI_JJIGAE));
+            coach.banMenus(List.of(Menu.DOJANG_JJIGAE, Menu.KIMCHI_JJIGAE));
         }
 
         @ParameterizedTest

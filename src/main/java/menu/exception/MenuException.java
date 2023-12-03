@@ -16,7 +16,8 @@ public enum MenuException {
     MAX_BANNED_MENU("못 먹는 메뉴는 최대 2개까지만 가능합니다."),
     CANT_EAT_MENU("못 먹는 메뉴는 선택할 수 없습니다."),
     INVALID_CATEGORY_NUMBER("존재하지 않는 카테고리입니다."),
-    CANT_SELECT_MORE_MENU("더 이상 선택할 수 없습니다.");
+    CANT_SELECT_MORE_MENU("더 이상 선택할 수 없습니다."),
+    ALREADY_BANNED_MENU("이미 못 먹는 메뉴를 선택했습니다.");
 
 
     private final String message;

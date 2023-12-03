@@ -61,6 +61,6 @@ public class MenuController {
         List<Menu> bannedMenus = banedMenuNames.stream()
                 .map(Menu::from)
                 .collect(Collectors.toList());
-        coach.addBanedMenu(bannedMenus);
+        coach.banMenus(bannedMenus);
     }
 }
