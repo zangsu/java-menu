@@ -22,21 +22,21 @@ public class Coaches {
         validateDuplicateCoachNames(coachNames);
     }
 
-    private void validateDuplicateCoachNames(List<String> coachNames) {
-        int distinctSize = (int) coachNames.stream()
-                .distinct()
-                .count();
-        if (distinctSize != coachNames.size()) {
-            throw MenuException.DUPLICATE_COACH_NAME.makeException();
-        }
-    }
-
     private void validateCoachesNumber(int size) {
         if (size < MIN_COACHES_NUMBER) {
             throw MenuException.MIN_COACHES_NUMBER.makeException();
         }
         if (size > MAX_COACHES_NUMBER) {
             throw MenuException.MAX_COACHES_NUMBER.makeException();
+        }
+    }
+
+    private void validateDuplicateCoachNames(List<String> coachNames) {
+        int distinctSize = (int) coachNames.stream()
+                .distinct()
+                .count();
+        if (distinctSize != coachNames.size()) {
+            throw MenuException.DUPLICATE_COACH_NAME.makeException();
         }
     }
 
