@@ -3,8 +3,8 @@ package menu.domain.coach;
 import menu.exception.MenuException;
 
 public class CoachName {
-    public static final int MIN_COACH_NAME = 2;
-    public static final int MAX_COACH_NAME = 4;
+    private static final int MIN_COACH_NAME = 2;
+    private static final int MAX_COACH_NAME = 4;
     private final String name;
 
     public CoachName(String name) {

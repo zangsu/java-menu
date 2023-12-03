@@ -33,9 +33,7 @@ public class OutputView {
                 .collect(Collectors.joining(" | ")));
         coaches.getCoaches().forEach(coach ->
                 printer.printMessageUsingFormat("[ %s | %s ]", coach.getName(),
-                        coach.getSelectedMenus().stream()
-                                .map(Menu::getName)
-                                .collect(Collectors.joining(" | "))
+                        String.join(" | ", coach.getSelectedMenuNames())
                 ));
 
         printer.printMessage("추천을 완료했습니다.");

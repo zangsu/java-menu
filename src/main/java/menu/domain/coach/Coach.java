@@ -1,11 +1,9 @@
 package menu.domain.coach;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import menu.domain.menu.Menu;
 import menu.exception.MenuException;
 
@@ -66,7 +64,9 @@ public class Coach {
         return name.getName();
     }
 
-    public List<Menu> getSelectedMenus() {
-        return Collections.unmodifiableList(selectedMenus);
+    public List<String> getSelectedMenuNames() {
+        return selectedMenus.stream()
+                .map(Menu::getName)
+                .collect(Collectors.toList());
     }
 }
