@@ -49,9 +49,11 @@ public class MenuController {
     }
 
     private void getBannedMenu(Coaches coaches) {
-        coaches.getCoaches().forEach(
-                coach -> handler.run(() -> getBannedMenuEachCoach(coach))
-        );
+        coaches.consumeCoaches(this::getBannedMenuWithHandling);
+    }
+
+    private void getBannedMenuWithHandling(Coach coach) {
+        handler.run(() -> getBannedMenuEachCoach(coach));
     }
 
     private void getBannedMenuEachCoach(Coach coach) {
@@ -60,6 +62,5 @@ public class MenuController {
                 .map(Menu::from)
                 .collect(Collectors.toList());
         coach.addBanedMenu(bannedMenus);
-        outputView.newLine();
     }
 }
