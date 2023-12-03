@@ -1,6 +1,7 @@
 package menu.domain.coach;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import menu.exception.MenuException;
 
@@ -41,5 +42,8 @@ public class Coaches {
         return coaches;
     }
 
+    public void consumeCoaches(Consumer<Coach> consumer){
+        coaches.forEach(consumer);
+    }
 
 }

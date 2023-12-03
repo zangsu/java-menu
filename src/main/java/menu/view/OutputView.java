@@ -1,6 +1,7 @@
 package menu.view;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import menu.domain.coach.Coaches;
 import menu.domain.menu.Category;
 import menu.domain.menu.Menu;
@@ -24,15 +25,18 @@ public class OutputView {
     }
 
     //todo
-    public void printResult(String[] categories, Coaches coaches) {
+    public void printResult(List<Category> categories, Coaches coaches) {
         printer.printMessage("메뉴 추천 결과입니다.");
         printer.printMessage("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
-        printer.printMessageUsingFormat("[ 카테고리 | %s | %s | %s | %s | %s ]", categories);
+        printer.printMessageUsingFormat("[ 카테고리 | %s ]", categories.stream()
+                .map(Category::getName)
+                .collect(Collectors.joining(" | ")));
         coaches.getCoaches().forEach(coach ->
-                printer.printMessageUsingFormat("[ " +coach.getName() + " | %s | %s | %s | %s | %s ]",
+                printer.printMessageUsingFormat("[ %s | %s ]", coach.getName(),
                         coach.getSelectedMenus().stream()
                                 .map(Menu::getName)
-                                .toArray(String[]::new)));
+                                .collect(Collectors.joining(" | "))
+                ));
 
         printer.printMessage("추천을 완료했습니다.");
     }

@@ -11,6 +11,7 @@ import menu.exception.MenuException;
 
 public class Coach {
     public static final int MAX_BANNED_MENU_NUM = 2;
+    public static final int WEEKDAY_COUNT = 5;
     private final CoachName name;
 
     //todo 나중에 래핑
@@ -48,7 +49,7 @@ public class Coach {
     }
 
     public boolean selectMenu(Menu menu){
-        if(selectedMenus.size() >= 5){
+        if(selectedMenus.size() >= WEEKDAY_COUNT){
             throw MenuException.CANT_SELECT_MORE_MENU.makeException();
         }
         if(banedMenus.contains(menu)){

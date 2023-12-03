@@ -23,7 +23,7 @@ public class MenuController {
         this.handler = handler;
     }
 
-    public void run(){
+    public void run() {
         outputView.printStartMessage();
         Coaches coaches = handler.get(this::getCoaches);
         getBannedMenu(coaches);
@@ -36,20 +36,11 @@ public class MenuController {
         selectCategories.forEach(
                 category -> selectMenu(coaches, category)
         );
-        outputView.printResult(selectCategories.stream().map(Category::getName).toArray(String[]::new), coaches);
+        outputView.printResult(selectCategories, coaches);
     }
 
     private void selectMenu(Coaches coaches, Category category) {
-        coaches.getCoaches().forEach((coach) -> selectMenuPerCoach(coach, category));
-    }
-
-    private void selectMenuPerCoach(Coach coach, Category category) {
-        while(true){
-            Menu menu = menuService.selectMenu(category);
-            if(coach.selectMenu(menu)){
-                return;
-            }
-        }
+        menuService.selectMenu(coaches, category);
     }
 
     private Coaches getCoaches() {
