@@ -73,4 +73,7 @@ public enum Menu {
                 .orElseThrow(MenuException.NO_SUCH_MENU::makeException);
     }
 
+    public String getName() {
+        return name;
+    }
 }
