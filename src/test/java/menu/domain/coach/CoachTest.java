@@ -16,28 +16,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 class CoachTest {
 
     @Nested
-    @DisplayName("코치 생성 테스트")
-    class 코치_생성_테스트 {
-        @ParameterizedTest
-        @ValueSource(strings = {"경덕", "장혁수", "황보경덕"})
-        @DisplayName("")
-        void 정상_생성_테스트(String coachName) {
-            Assertions.assertThatNoException()
-                    .isThrownBy(() -> new Coach(coachName));
-        }
-
-
-        @ParameterizedTest
-        @ValueSource(strings = {"덕", "최김황경덕", "김이박최경덕"})
-        @DisplayName("이름이 2~4글자가 아닐 경우 예외 발생")
-        void 긴_이름_예외_테스트(String coachName) {
-            Assertions.assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Coach(coachName))
-                    .withMessage(MenuException.INVALID_COACH_NAME_LENGTH.getMessage());
-        }
-    }
-
-    @Nested
     @DisplayName("못먹는 메뉴 테스트")
     static class 못_먹는_메뉴_테스트 {
 
@@ -93,6 +71,23 @@ class CoachTest {
     static class 메뉴_선택_테스트 {
         private Coach coach;
 
+        static Stream<List<Menu>> normalSelectMenu() {
+            return Stream.of(
+                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI, Menu.FRENCH_TOAST, Menu.BUN_CHA),
+                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI, Menu.FRENCH_TOAST),
+                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI),
+                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK),
+                    List.of(Menu.BIBIMBAP)
+            );
+        }
+
+        static Stream<Menu> bannedSelectMenu() {
+            return Stream.of(
+                    Menu.DOJANG_JJIGAE,
+                    Menu.KIMCHI_JJIGAE
+            );
+        }
+
         @BeforeEach
         void setUp() {
             coach = new Coach("경덕");
@@ -112,40 +107,23 @@ class CoachTest {
                     });
         }
 
-        static Stream<List<Menu>> normalSelectMenu() {
-            return Stream.of(
-                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI, Menu.FRENCH_TOAST, Menu.BUN_CHA),
-                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI, Menu.FRENCH_TOAST),
-                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK, Menu.BANH_MI),
-                    List.of(Menu.BIBIMBAP, Menu.DONGPO_PORK),
-                    List.of(Menu.BIBIMBAP)
-            );
-        }
-        
         @ParameterizedTest
         @MethodSource("bannedSelectMenu")
         @DisplayName("못먹는 메뉴를 선택하면 false를 반환한다.")
-        void 못먹는_메뉴_선택(){
+        void 못먹는_메뉴_선택() {
             Assertions.assertThat(coach.selectMenu(Menu.DOJANG_JJIGAE)).isFalse();
-        }
-        
-        static Stream<Menu> bannedSelectMenu(){
-            return Stream.of(
-                    Menu.DOJANG_JJIGAE,
-                    Menu.KIMCHI_JJIGAE
-            );
         }
 
         @Test
         @DisplayName("이미 선택한 메뉴를 선택하면 false를 반환한다.")
-        void 이미_선택한_메뉴_선택(){
+        void 이미_선택한_메뉴_선택() {
             coach.selectMenu(Menu.BIBIMBAP);
             Assertions.assertThat(coach.selectMenu(Menu.BIBIMBAP)).isFalse();
         }
 
         @Test
         @DisplayName("5개 이상의 메뉴를 선택하면 예외가 발생한다.")
-        void 메뉴_초과_선택(){
+        void 메뉴_초과_선택() {
             coach.selectMenu(Menu.BIBIMBAP);
             coach.selectMenu(Menu.DONGPO_PORK);
             coach.selectMenu(Menu.BANH_MI);
@@ -154,6 +132,28 @@ class CoachTest {
             Assertions.assertThatIllegalArgumentException()
                     .isThrownBy(() -> coach.selectMenu(Menu.DOJANG_JJIGAE))
                     .withMessage(MenuException.CANT_SELECT_MORE_MENU.getMessage());
+        }
+    }
+
+    @Nested
+    @DisplayName("코치 생성 테스트")
+    class 코치_생성_테스트 {
+        @ParameterizedTest
+        @ValueSource(strings = {"경덕", "장혁수", "황보경덕"})
+        @DisplayName("")
+        void 정상_생성_테스트(String coachName) {
+            Assertions.assertThatNoException()
+                    .isThrownBy(() -> new Coach(coachName));
+        }
+
+
+        @ParameterizedTest
+        @ValueSource(strings = {"덕", "최김황경덕", "김이박최경덕"})
+        @DisplayName("이름이 2~4글자가 아닐 경우 예외 발생")
+        void 긴_이름_예외_테스트(String coachName) {
+            Assertions.assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new Coach(coachName))
+                    .withMessage(MenuException.INVALID_COACH_NAME_LENGTH.getMessage());
         }
     }
 

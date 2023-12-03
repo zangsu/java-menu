@@ -21,19 +21,19 @@ public class Coaches {
     }
 
     private void validateDuplicateCoachNames(List<String> coachNames) {
-        int distinctSize = (int)coachNames.stream()
+        int distinctSize = (int) coachNames.stream()
                 .distinct()
                 .count();
-        if(distinctSize != coachNames.size()){
+        if (distinctSize != coachNames.size()) {
             throw MenuException.DUPLICATE_COACH_NAME.makeException();
         }
     }
 
     private void validateCoachesNumber(int size) {
-        if(size < 2){
+        if (size < 2) {
             throw MenuException.MIN_COACHES_NUMBER.makeException();
         }
-        if(size > 5){
+        if (size > 5) {
             throw MenuException.MAX_COACHES_NUMBER.makeException();
         }
     }
@@ -42,7 +42,7 @@ public class Coaches {
         return coaches;
     }
 
-    public void consumeCoaches(Consumer<Coach> consumer){
+    public void consumeCoaches(Consumer<Coach> consumer) {
         coaches.forEach(consumer);
     }
 

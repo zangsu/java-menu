@@ -20,7 +20,7 @@ public class Menus {
         int distinctCount = (int) menu.stream()
                 .distinct()
                 .count();
-        if(distinctCount != menu.size()){
+        if (distinctCount != menu.size()) {
             throw MenuException.DUPLICATE_MENU.makeException();
         }
     }
@@ -29,11 +29,11 @@ public class Menus {
         return menus.contains(menu);
     }
 
-    public void add(Menu menu){
+    public void add(Menu menu) {
         menus.add(menu);
     }
 
-    public int size(){
+    public int size() {
         return menus.size();
     }
 

@@ -4,27 +4,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 import menu.domain.coach.Coaches;
 import menu.domain.menu.Category;
-import menu.domain.menu.Menu;
 import menu.view.io.Printer;
 
 public class OutputView {
     public static final String EXCEPTION_PREFIX = "[ERROR] ";
     private final Printer printer = new Printer();
 
-    public void printException(Exception e){
+    public void printException(Exception e) {
         printer.printMessage(EXCEPTION_PREFIX + e.getMessage());
     }
 
-    public void newLine(){
+    public void newLine() {
         printer.printMessage("");
     }
 
-    public void printStartMessage(){
+    public void printStartMessage() {
         printer.printMessage("점심 메뉴 추천을 시작합니다.");
         newLine();
     }
 
-    //todo
     public void printResult(List<Category> categories, Coaches coaches) {
         printer.printMessage("메뉴 추천 결과입니다.");
         printer.printMessage("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
@@ -37,10 +35,5 @@ public class OutputView {
                 ));
 
         printer.printMessage("추천을 완료했습니다.");
-    }
-
-    /**     */
-    private <T> void printListUsingFormat(String format, List<T> list){
-        list.forEach(t -> printer.printMessageUsingFormat("format", 1, 2, 3));
     }
 }

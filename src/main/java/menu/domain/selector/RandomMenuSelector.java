@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import menu.domain.menu.Category;
 import menu.domain.menu.Menu;
 
-public class RandomMenuSelector implements MenuSelector{
+public class RandomMenuSelector implements MenuSelector {
     @Override
     public Menu select(Category category) {
         List<String> menus = category.getMenus().stream()

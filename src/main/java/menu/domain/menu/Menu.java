@@ -57,18 +57,20 @@ public enum Menu {
     PANINI("파니니");
 
     private static final Map<String, Menu> cachedMenus = new HashMap<>();
-    static{
+
+    static {
         for (Menu menu : Menu.values()) {
             cachedMenus.put(menu.name, menu);
         }
     }
+
     private final String name;
 
     Menu(String name) {
         this.name = name;
     }
 
-    public static Menu from(String name){
+    public static Menu from(String name) {
         return Optional.ofNullable(cachedMenus.get(name))
                 .orElseThrow(MenuException.NO_SUCH_MENU::makeException);
     }

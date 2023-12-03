@@ -11,11 +11,11 @@ public class RetryHandler implements ExceptionHandler {
         return getOrRetry(supplier);
     }
 
-    private <T> T getOrRetry(Supplier<T> supplier){
-        while(true){
-            try{
+    private <T> T getOrRetry(Supplier<T> supplier) {
+        while (true) {
+            try {
                 return supplier.get();
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 outputView.printException(e);
             } finally {
                 outputView.newLine();
@@ -29,7 +29,7 @@ public class RetryHandler implements ExceptionHandler {
     }
 
     private void runOrRetry(Runnable runnable) {
-        while(true){
+        while (true) {
             try {
                 runnable.run();
                 return;

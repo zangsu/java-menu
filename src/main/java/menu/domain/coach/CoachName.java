@@ -17,7 +17,7 @@ public class CoachName {
     }
 
     private void validateNameLength(String name) {
-        if(name.length() < MIN_COACH_NAME || name.length() > MAX_COACH_NAME){
+        if (name.length() < MIN_COACH_NAME || name.length() > MAX_COACH_NAME) {
             throw MenuException.INVALID_COACH_NAME_LENGTH.makeException();
         }
     }

@@ -26,7 +26,7 @@ public enum MenuException {
         this.message = message;
     }
 
-    public IllegalArgumentException makeException(){
+    public IllegalArgumentException makeException() {
         return new IllegalArgumentException(this.message);
     }
 

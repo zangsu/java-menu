@@ -3,25 +3,24 @@ package menu.view.io;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import menu.exception.MenuException;
 
 public class Reader {
-    public int getInteger(){
+    public int getInteger() {
         String input = Console.readLine();
         return parseInt(input);
     }
 
     private int parseInt(String input) {
-        try{
+        try {
             return Integer.parseInt(input);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw MenuException.INVALID_NUMBER_FORMAT.makeException();
         }
     }
 
-    public String getString(){
+    public String getString() {
         return Console.readLine();
     }
 
@@ -35,22 +34,15 @@ public class Reader {
         return inputs;
     }
 
-    private void validateNotBlank(String input){
-        if(input.isBlank()){
+    private void validateNotBlank(String input) {
+        if (input.isBlank()) {
             throw MenuException.BLANK_INPUT.makeException();
         }
     }
+
     private void validateNotEndDelimiter(String input, String delimiter) {
         if (input.endsWith(delimiter)) {
             throw MenuException.INVALID_INPUT_FORMAT.makeException();
         }
-    }
-
-    //아래 메서드는 안쓸 것 같긴 한데
-    public <T> List<T> getObjectsUsingDelimiter(Function<String, T> converter, String delimiter){
-        List<String> inputStrings = getStringsUsingDelimiter(delimiter);
-        return inputStrings.stream()
-                .map(converter::apply)
-                .collect(Collectors.toList());
     }
 }
